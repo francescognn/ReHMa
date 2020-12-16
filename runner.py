@@ -3,15 +3,20 @@
 from data_types import IO
 
 class Runner:
+
+    def __init__(self, IOs):
+        self.input_data = dict.fromkeys(IOs.keys(),[])
+
     def Init(self):
         print("Initializing")
+        self.update_input()
     def Step(self):
-        man = self.update_input()
         print("Step")
     def Shutdown(self):
         print("Shutting Down")
     def update_input(self):
-        pass     
+        pass
+
 # class PlatformRunner(Runner):
     # def get_input(self):
         # return 1
