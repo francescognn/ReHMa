@@ -1,5 +1,8 @@
 # ReHMa
 
+Importante aggiungere al path di python la directory: 
+
+export PYTHONPATH="${PYTHONPATH}:$PWD"
 
 Io creerei un runner che abbia un Init, una step e una shutdown functions e la creerei come classe virtuale, per poi avere due classi che ereditano da questa: 
     - platform_runner (che userà librerie che possono girare solo su Raspberry per esempio GPIO) 

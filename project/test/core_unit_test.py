@@ -3,8 +3,8 @@
 import unittest
 import io
 import sys
-from agnostic_runner import AgnosticRunner
-from data_types import IO
+from project.data_types import IO
+from project.runner.agnostic_runner import *
 
 IOMapping = {
   "TIN":  IO(1, "INPUT_PIN"),

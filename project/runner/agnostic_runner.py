@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from runner import Runner
+from project.runner.runner import Runner
 
 class AgnosticRunner(Runner):
     def update_input(self):
