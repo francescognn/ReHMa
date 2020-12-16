@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from time import sleep
-from core import Runner
+from runner import Runner
 
 runner = Runner()
 runner.Init()

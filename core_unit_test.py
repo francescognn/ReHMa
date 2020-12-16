@@ -3,14 +3,14 @@
 import unittest
 import io
 import sys
-from core import Runner
+from runner import Runner
 
 class TestCoreMethods(unittest.TestCase):
 
     def test_init(self):
         runner = Runner()
         capturedOutput = io.StringIO()        
-        sys.stdout = capturedOutpu
+        sys.stdout = capturedOutput
         runner.Init()
         self.assertEqual(capturedOutput.getvalue(), "Initializing\n")
         sys.stdout = sys.__stdout__
