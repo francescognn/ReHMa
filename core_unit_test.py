@@ -3,7 +3,7 @@
 import unittest
 import io
 import sys
-from runner import AgnosticRunner
+from agnostic_runner import AgnosticRunner
 from data_types import IO
 
 IOMapping = {
@@ -41,3 +41,4 @@ class TestCoreMethods(unittest.TestCase):
     def test_update_input(self):
         runner = AgnosticRunner(IOMapping)
         self.assertEqual(runner.update_input(), 2) 
+

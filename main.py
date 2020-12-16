@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 
 from time import sleep
-from runner import Runner
+from agnostic_runner import AgnosticRunner
 
-runner = Runner()
+IOMapping = {
+  "TIN":  IO(1, "INPUT_PIN"),
+  "TOUT": IO(2, "INPUT_PIN"),
+  "RELE": IO(4, "OUTPUT_PIN")
+}
+
+runner = AgnosticRunner(IOMapping)
 runner.Init()
 
 while True: 
