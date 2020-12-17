@@ -11,10 +11,10 @@ IOMapping = {
 }
 
 runner = AgnosticRunner(IOMapping)
-runner.Init()
+runner.init()
 
 while True:
-    runner.Step()
+    runner.step()
     sleep(1)
 
-runner.Shutdown()
+runner.shutdown()

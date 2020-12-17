@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO
 
 
 class PlatformRunner(Runner):
-    def update_input(self):
+    def read_input(self):
         GPIO.setmode(GPIO.BCM)
         INPUT_PIN = self.IOs["TIN"].pin
         GPIO.setup(INPUT_PIN, GPIO.IN)
