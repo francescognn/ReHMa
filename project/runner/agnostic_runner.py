@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 from project.runner.runner import Runner
-
+from project.common.db_emulator import DbEmulator
 
 class AgnosticRunner(Runner):
-        # db_emu = DbEmu()
+    def __init__(self, IOs):
+        Runner.__init__(self, IOs)
+        self.db_emulator = DbEmulator()
         # raspberry_emu = RaspberryEmu()
 
     def read_inputs(self):
-        # TODO: Add method to get agnostic input
         self.input_data_["TIN"] = 6.5
-    
+ 
     def read_requests(self):
-        # db_stub_.get_ignition_request()
-        # self.req_heater_state = db_emu.get_heater_state() 
+        self.req_heater_state = self.db_emulator.get_heater_state() 
         self.req_heater_state = True 
 
     def publish_commands(self):

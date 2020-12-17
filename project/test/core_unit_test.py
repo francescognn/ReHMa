@@ -27,8 +27,8 @@ class TestCoreMethods(unittest.TestCase):
         runner = AgnosticRunner(IOMapping)
         runner.step()
         self.assertEqual(runner.input_data_["TIN"], 6.5)
-        self.assertTrue(runner.heater.get_status())
-
+        self.assertEqual(runner.heater.get_status(), runner.req_heater_state)
+        
     def test_shutdown(self):
         runner = AgnosticRunner(IOMapping)
         capturedOutput = io.StringIO()
