@@ -20,18 +20,18 @@ class Runner:
         self.read_requests()
         print("Temperature: ", self.temperatures["Sala"])
         print("Heater initial status: ", self.heater.get_status())
-        if (self.req_heater_state != self.heater.get_status()):
+        if self.req_heater_state != self.heater.get_status():
             self.heater.set_status(self.req_heater_state)
-        
-        if (self.temperatures["Sala"] <= 5.0) :
+
+        if self.temperatures["Sala"] <= 5.0:
             self.heater.set_status(True)
             self.antifreeze_mode = True
-        
+
         if (self.antifreeze_mode) and (self.temperatures["Sala"] >= 7.0):
             self.heater.set_status(False)
             self.antifreeze_mode = False
         print("Heater final status: ", self.heater.get_status())
-            
+
         self.publish_commands()
         self.upload_outputs()
 
