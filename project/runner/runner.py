@@ -7,7 +7,7 @@ from project.common.heater import Heater
 class Runner:
     def __init__(self, IOs):
         self.IOs = IOs
-        self.input_data = dict.fromkeys(IOs.keys(), [])
+        self.temperatures = {"Sala": 0.0}
         self.req_heater_state = False
         self.heater = Heater()
 
@@ -15,7 +15,7 @@ class Runner:
         print("Initializing")
 
     def step(self):
-        self.read_inputs()
+        self.read_temperatures()
         self.read_requests()
 
         if self.req_heater_state != self.heater.get_status():
@@ -27,7 +27,7 @@ class Runner:
     def shutdown(self):
         print("Shutting Down")
 
-    def read_inputs(self):
+    def read_temperatures(self):
         pass
 
     def read_requests(self):

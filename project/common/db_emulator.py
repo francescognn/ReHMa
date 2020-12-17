@@ -3,5 +3,5 @@ import random
 
 
 class DbEmulator:
-    def get_heater_state(self):
+    def get_rand_heater_state(self):
         return bool(random.getrandbits(1))
