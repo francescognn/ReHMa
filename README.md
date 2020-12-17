@@ -1,5 +1,5 @@
 # ReHMa
-
+test
 Importante aggiungere al path di python la directory: 
 
 export PYTHONPATH="${PYTHONPATH}:$PWD"
