@@ -2,6 +2,7 @@
 from project.runner.runner import Runner
 from project.common.db_emulator import DbEmulator
 
+
 class AgnosticRunner(Runner):
     def __init__(self, IOs):
         Runner.__init__(self, IOs)
@@ -10,13 +11,13 @@ class AgnosticRunner(Runner):
 
     def read_inputs(self):
         self.input_data_["TIN"] = 6.5
- 
+
     def read_requests(self):
-        self.req_heater_state = self.db_emulator.get_heater_state() 
-        self.req_heater_state = True 
+        self.req_heater_state = self.db_emulator.get_heater_state()
+        self.req_heater_state = True
 
     def publish_commands(self):
-        # raspberry_emu.set_pin(["RELE"], True) 
+        # raspberry_emu.set_pin(["RELE"], True)
         pass
 
     def upload_outputs(self):

@@ -3,6 +3,7 @@
 from project.data_types import IO
 from project.common.heater import Heater
 
+
 class Runner:
     def __init__(self, IOs):
         self.IOs = IOs
@@ -12,7 +13,7 @@ class Runner:
 
     def init(self):
         print("Initializing")
-        
+
     def step(self):
         self.read_inputs()
         self.read_requests()
