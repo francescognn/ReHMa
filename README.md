@@ -11,4 +11,4 @@ Class `Runner` is an Application Class implementing all the platform agnostic lo
 ## Testing 
 * unit tests implemented for each method
 * integration tests to be run simulating raspberry input and output.
-
+## TBD
