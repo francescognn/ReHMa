@@ -10,7 +10,7 @@ class AgnosticRunner(Runner):
         # raspberry_emu = RaspberryEmu()
 
     def read_inputs(self):
-        self.input_data_["TIN"] = 6.5
+        self.input_data["TIN"] = 6.5
 
     def read_requests(self):
         self.req_heater_state = self.db_emulator.get_heater_state()

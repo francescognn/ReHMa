@@ -7,7 +7,7 @@ from project.common.heater import Heater
 class Runner:
     def __init__(self, IOs):
         self.IOs = IOs
-        self.input_data_ = dict.fromkeys(IOs.keys(), [])
+        self.input_data = dict.fromkeys(IOs.keys(), [])
         self.req_heater_state = False
         self.heater = Heater()
 
