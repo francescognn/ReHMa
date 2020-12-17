@@ -11,4 +11,7 @@ Class `Runner` is an Application Class implementing all the platform agnostic lo
 ## Testing 
 * unit tests implemented for each method
 * integration tests to be run simulating raspberry input and output.
-## TBD
+## Continuous integration
+So far two pipelines have been set up: 
+* ReHMa-Check performing black formatting over all python project
+* ReHMa-Test running `main_test.py` to cover unit tests
