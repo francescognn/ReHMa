@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from time import sleep
-from agnostic_runner import AgnosticRunner
+from data_types import IO
+from runner.agnostic_runner import AgnosticRunner
 
 IOMapping = {
     "TIN": IO(1, "INPUT_PIN"),
