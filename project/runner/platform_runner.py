@@ -3,8 +3,9 @@ import RPi.GPIO as GPIO
 
 
 class PlatformRunner(Runner):
-    def update_input(self):
+    def read_temperatures(self):
+        # TODO: to be reviewed, there is a library for the sensor
         GPIO.setmode(GPIO.BCM)
         INPUT_PIN = self.IOs["TIN"].pin
         GPIO.setup(INPUT_PIN, GPIO.IN)
-        self.input_data["TIN"] = GPIO.input(INPUT_PIN)
+        self.temperatures["Sala"] = GPIO.input(INPUT_PIN)
