@@ -2,12 +2,12 @@
 
 from project.data_types import IO
 
-class Runner:
 
+class Runner:
     def __init__(self, IOs):
         self.IOs = IOs
-        self.input_data = dict.fromkeys(IOs.keys(),[])
-        
+        self.input_data = dict.fromkeys(IOs.keys(), [])
+
     def Init(self):
         print("Initializing")
         self.update_input()
@@ -20,4 +20,3 @@ class Runner:
 
     def update_input(self):
         pass
-
