@@ -4,7 +4,7 @@ import unittest
 import io
 import sys
 from project.data_types import IO
-from project.runner.agnostic_runner import *
+from project.runner.independent_runner import *
 from project.common.heater import *
 from project.common.raspberry_emulator import RaspberryEmulator
 
@@ -17,7 +17,7 @@ IOMapping = {
 
 class TestCoreMethods(unittest.TestCase):
     def test_init(self):
-        runner = AgnosticRunner(IOMapping)
+        runner = IndependentRunner(IOMapping)
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
         runner.init()
@@ -25,13 +25,13 @@ class TestCoreMethods(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
     def test_step(self):
-        runner = AgnosticRunner(IOMapping)
+        runner = IndependentRunner(IOMapping)
         runner.step()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
         self.assertEqual(runner.heater.get_status(), runner.req_heater_state)
 
     def test_shutdown(self):
-        runner = AgnosticRunner(IOMapping)
+        runner = IndependentRunner(IOMapping)
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
         runner.shutdown()
@@ -39,7 +39,7 @@ class TestCoreMethods(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
     def test_read_temperatures(self):
-        runner = AgnosticRunner(IOMapping)
+        runner = IndependentRunner(IOMapping)
         runner.read_temperatures()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
 

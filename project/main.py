@@ -2,7 +2,7 @@
 
 from time import sleep
 from data_types import IO
-from runner.agnostic_runner import AgnosticRunner
+from runner.independent_runner import IndependentRunner 
 
 IOMapping = {
     "TIN": IO(1, "INPUT_PIN"),
@@ -10,7 +10,7 @@ IOMapping = {
     "RELE": IO(4, "OUTPUT_PIN"),
 }
 
-runner = AgnosticRunner(IOMapping)
+runner = IndependentRunner(IOMapping)
 runner.init()
 
 while True:

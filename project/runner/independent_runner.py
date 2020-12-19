@@ -4,7 +4,7 @@ from project.common.db_emulator import DbEmulator
 from project.common.raspberry_emulator import RaspberryEmulator
 
 
-class AgnosticRunner(Runner):
+class IndependentRunner(Runner):
     def __init__(self, IOs):
         Runner.__init__(self, IOs)
         self.db_emulator = DbEmulator()
