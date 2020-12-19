@@ -6,7 +6,7 @@ import sys
 from project.data_types import IO
 from project.runner.independent_runner import *
 from project.common.heater import *
-from project.common.raspberry_emulator import RaspberryEmulator
+from project.test.utils.io_emulator import IOEmulator
 
 IOMapping = {
     "TIN": IO(1, "INPUT_PIN"),
@@ -56,6 +56,6 @@ class TestHeater(unittest.TestCase):
 
 
 class TestRaspberryEmulator(unittest.TestCase):
-    def test_get_rand_temperature(self):
-        raspberry_emulator = RaspberryEmulator()
-        self.assertTrue(0.0 <= raspberry_emulator.get_rand_temperature() <= 27.5)
+    def test_get_temperature(self):
+        io_emulator = IOEmulator()
+        self.assertTrue(0.0 <= io_emulator.get_temperature() <= 27.5)
