@@ -13,17 +13,17 @@ class IOEmulator:
     def __init__(self):
         self.heater_status = False
         self.current_temp = 10.0
-        self.season = "Summer"
+        self.config = "Summer"
 
     def step(self):
         if (self.heater_status == True):
             if self.current_temp <= T_MAX_HEATER:
                 self.current_temp += 0.5
         else:
-            if (self.season == "Winter"):
+            if (self.config == "Winter"):
                 if (self.current_temp > T_MIN):
                     self.current_temp -= 0.5 
-            if (self.season == "Summer"):
+            if (self.config == "Summer"):
                 if (self.current_temp < T_MAX):
                     self.current_temp += 0.5
 
@@ -36,5 +36,5 @@ class IOEmulator:
     def set_heater_status(self, status):
         self.heater_status = status
 
-    def set_season(self, season):
-        self.season = season
+    def set_config(self, config):
+        self.config = config

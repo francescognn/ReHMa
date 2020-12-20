@@ -13,7 +13,7 @@ IOMapping = {
 io_emulator = IOEmulator()
 runner = IndependentRunner(IOMapping, io_emulator)
 runner.init()
-io_emulator.set_season("Summer")
+io_emulator.set_config("Summer")
 
 while True:
     runner.step()
