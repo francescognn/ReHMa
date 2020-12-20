@@ -2,7 +2,7 @@
 
 from time import sleep
 from data_types import IO
-from runner.independent_runner import IndependentRunner 
+from runner.independent_runner import IndependentRunner
 from project.test.utils.io_emulator import IOEmulator
 
 IOMapping = {

@@ -11,8 +11,8 @@ class IndependentRunner(Runner):
         self.temperatures["Sala"] = self.io_emulator.get_temperature()
 
     def read_heater_status(self):
-        return self.io_emulator.get_heater_status() 
-    
+        return self.io_emulator.get_heater_status()
+
     def read_requests(self):
         self.req_heater_status = self.io_emulator.get_remote_request()
 
