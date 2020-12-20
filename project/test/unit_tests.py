@@ -4,9 +4,9 @@ import unittest
 import io
 import sys
 from project.data_types import IO
-from project.runner.agnostic_runner import *
+from project.runner.independent_runner import *
 from project.common.heater import *
-from project.common.raspberry_emulator import RaspberryEmulator
+from project.test.utils.io_emulator import IOEmulator
 
 IOMapping = {
     "TIN": IO(1, "INPUT_PIN"),
@@ -17,7 +17,8 @@ IOMapping = {
 
 class TestCoreMethods(unittest.TestCase):
     def test_init(self):
-        runner = AgnosticRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
         runner.init()
@@ -25,13 +26,15 @@ class TestCoreMethods(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
     def test_step(self):
-        runner = AgnosticRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         runner.step()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
-        self.assertEqual(runner.heater.get_status(), runner.req_heater_state)
+        self.assertEqual(runner.read_heater_status(), runner.req_heater_state)
 
     def test_shutdown(self):
-        runner = AgnosticRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
         runner.shutdown()
@@ -39,23 +42,11 @@ class TestCoreMethods(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
     def test_read_temperatures(self):
-        runner = AgnosticRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         runner.read_temperatures()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
 
 
-class TestHeater(unittest.TestCase):
-    def test_set_status(self):
-        heater = Heater()
-        heater.set_status(True)
-        self.assertTrue(heater.get_status())
-
-    def test_get_status(self):
-        heater = Heater()
-        self.assertFalse(heater.get_status())
-
-
-class TestRaspberryEmulator(unittest.TestCase):
-    def test_get_rand_temperature(self):
-        raspberry_emulator = RaspberryEmulator()
-        self.assertTrue(0.0 <= raspberry_emulator.get_rand_temperature() <= 27.5)
+if __name__ == "__main__":
+    unittest.main()
