@@ -17,7 +17,8 @@ IOMapping = {
 
 class TestCoreMethods(unittest.TestCase):
     def test_init(self):
-        runner = IndependentRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
         runner.init()
@@ -25,13 +26,15 @@ class TestCoreMethods(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
     def test_step(self):
-        runner = IndependentRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         runner.step()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
-        self.assertEqual(runner.heater.get_status(), runner.req_heater_state)
+        self.assertEqual(runner.read_heater_status(), runner.req_heater_state)
 
     def test_shutdown(self):
-        runner = IndependentRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         capturedOutput = io.StringIO()
         sys.stdout = capturedOutput
         runner.shutdown()
@@ -39,23 +42,7 @@ class TestCoreMethods(unittest.TestCase):
         sys.stdout = sys.__stdout__
 
     def test_read_temperatures(self):
-        runner = IndependentRunner(IOMapping)
+        io_emulator = IOEmulator()
+        runner = IndependentRunner(IOMapping, io_emulator)
         runner.read_temperatures()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
-
-
-class TestHeater(unittest.TestCase):
-    def test_set_status(self):
-        heater = Heater()
-        heater.set_status(True)
-        self.assertTrue(heater.get_status())
-
-    def test_get_status(self):
-        heater = Heater()
-        self.assertFalse(heater.get_status())
-
-
-class TestRaspberryEmulator(unittest.TestCase):
-    def test_get_temperature(self):
-        io_emulator = IOEmulator()
-        self.assertTrue(0.0 <= io_emulator.get_temperature() <= 27.5)
