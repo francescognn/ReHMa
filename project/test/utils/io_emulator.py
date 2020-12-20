@@ -14,7 +14,7 @@ class IOEmulator:
     def __init__(self):
         self.heater_status = False
         self.current_temp = 10.0
-        self.config = "Summer"
+        self.config = "constant"
         self.flag = True
         self.iterator = 0
         self.remote_request = False
