@@ -21,7 +21,6 @@ class Runner:
         self.read_temperatures()
         self.read_requests()
 
-        print("Temperature: ", self.temperatures["Sala"])
         if self.req_heater_status != self.read_heater_status():
             self.publish_heater_command(self.req_heater_status)
 
@@ -32,8 +31,6 @@ class Runner:
         if (self.antifreeze_mode) and (self.temperatures["Sala"] > 7.0):
             self.publish_heater_command(False)
             self.antifreeze_mode = False
-
-        print("Heater status: ", self.read_heater_status())
 
         self.upload_outputs()
 

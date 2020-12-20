@@ -14,7 +14,7 @@ class IndependentRunner(Runner):
         return self.io_emulator.get_heater_status() 
     
     def read_requests(self):
-        self.req_heater_status = self.io_emulator.get_heater_status()
+        self.req_heater_status = self.io_emulator.get_remote_request()
 
     def publish_heater_command(self, command):
         self.io_emulator.set_heater_status(command)

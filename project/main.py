@@ -13,11 +13,11 @@ IOMapping = {
 io_emulator = IOEmulator()
 runner = IndependentRunner(IOMapping, io_emulator)
 runner.init()
-io_emulator.set_config("Summer")
+io_emulator.set_config("trigger")
 
 while True:
     runner.step()
     io_emulator.step()
-    sleep(1)
+    sleep(0.2)
 
 runner.shutdown()

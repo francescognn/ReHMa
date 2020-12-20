@@ -46,3 +46,7 @@ class TestCoreMethods(unittest.TestCase):
         runner = IndependentRunner(IOMapping, io_emulator)
         runner.read_temperatures()
         self.assertTrue(0.0 <= runner.temperatures["Sala"] <= 27.5)
+
+
+if __name__ == "__main__":
+    unittest.main()
