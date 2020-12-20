@@ -1,11 +1,13 @@
 #!/usr/bin/env python
 from project.runner.runner import Runner
+from project.test.utils.io_emulator import IOEmulator
 
 
 class IndependentRunner(Runner):
-    def __init__(self, IOs, emulator):
+    def __init__(self, IOs, config):
         Runner.__init__(self, IOs)
-        self.io_emulator = emulator
+        self.io_emulator = IOEmulator()
+        self.io_emulator.set_config(config)
 
     def read_temperatures(self):
         self.temperatures["Sala"] = self.io_emulator.get_temperature()
@@ -22,3 +24,7 @@ class IndependentRunner(Runner):
     def upload_outputs(self):
         # db_emu.set_outputs(self.input_data_)
         pass
+
+    def step(self):
+        Runner.step(self)
+        self.io_emulator.step()

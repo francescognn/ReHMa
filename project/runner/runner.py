@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from project.data_types import IO
-from project.common.heater import Heater
 
 
 class Runner:
@@ -9,7 +8,6 @@ class Runner:
         self.IOs = IOs
         self.temperatures = {"Sala": 0.0}
         self.req_heater_state = False
-        self.heater = Heater()
         self.antifreeze_mode = False
 
     def init(self):
@@ -27,11 +25,11 @@ class Runner:
         if self.temperatures["Sala"] < 5.0:
             self.publish_heater_command(True)
             self.antifreeze_mode = True
-
+        print("Temperatura attuale: ", self.temperatures["Sala"])
         if (self.antifreeze_mode) and (self.temperatures["Sala"] > 7.0):
             self.publish_heater_command(False)
             self.antifreeze_mode = False
-
+        print("Stato Caldaia: ", self.read_heater_status())
         self.upload_outputs()
 
     def shutdown(self):

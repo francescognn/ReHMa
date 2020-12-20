@@ -23,21 +23,21 @@ class IOEmulator:
         if self.config == "antifreeze":
             if self.heater_status == True:
                 if self.current_temp < T_MAX_HEATER:
-                    self.current_temp += 1
+                    self.current_temp += 0.1
                 if self.current_temp > 6.0:
                     self.flag = False
             if self.current_temp > T_MIN and self.flag:
-                self.current_temp -= 0.5
+                self.current_temp -= 0.05
 
         if self.config == "constant":
             if self.heater_status == True:
                 if self.current_temp < T_MAX_HEATER:
-                    self.current_temp += 0.5
+                    self.current_temp += 0.05
 
         if self.config == "trigger":
             if self.heater_status == True:
                 if self.current_temp < T_MAX_HEATER:
-                    self.current_temp += 0.5
+                    self.current_temp += 0.05
             if self.iterator == 5:
                 self.remote_request = True
             self.iterator += 1
