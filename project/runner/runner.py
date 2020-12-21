@@ -22,7 +22,7 @@ class Runner:
 
         if self.req_heater_status != self.current_heater_status:
             self.publish_heater_command(self.req_heater_status)
-        
+
         if self.temperatures["Sala"] < 5.0:
             self.publish_heater_command(True)
             self.antifreeze_mode = True
@@ -30,7 +30,7 @@ class Runner:
         if (self.antifreeze_mode) and (self.temperatures["Sala"] > 7.0):
             self.publish_heater_command(False)
             self.antifreeze_mode = False
-       
+
         print("t in sala:", self.temperatures["Sala"])
         self.upload_outputs()
 

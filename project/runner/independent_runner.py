@@ -11,25 +11,31 @@ class IndependentRunner(Runner):
         self.ros_temperatures = {"Sala": 0.0}
         self.ros_remote_request = False
 
-        self.sub_temperature = rospy.Subscriber("temperature", Float64, self.temperature_callback)
-        self.sub_heater = rospy.Subscriber("heater_status", Bool, self.heater_status_callback)
-        self.sub_remote_request = rospy.Subscriber("remote_request", Bool, self.remote_request_callback)
+        self.sub_temperature = rospy.Subscriber(
+            "temperature", Float64, self.temperature_callback
+        )
+        self.sub_heater = rospy.Subscriber(
+            "heater_status", Bool, self.heater_status_callback
+        )
+        self.sub_remote_request = rospy.Subscriber(
+            "remote_request", Bool, self.remote_request_callback
+        )
         self.pub_heater_command = rospy.Publisher("heater_command", Bool, queue_size=10)
-        
-        rospy.init_node('Runner', anonymous=True)
-        self.rate = rospy.Rate(10) # 10hz
-    
+
+        rospy.init_node("Runner", anonymous=True)
+        self.rate = rospy.Rate(10)  # 10hz
+
     def temperature_callback(self, data):
         self.ros_temperatures["Sala"] = data.data
 
     def heater_status_callback(self, data):
         self.current_heater_status = data
-        
+
     def remote_request_callback(self, data):
         self.ros_remote_request = data
-        
+
     def read_temperatures(self):
-        self.temperatures = self.ros_temperatures 
+        self.temperatures = self.ros_temperatures
 
     def read_heater_status(self):
         self.current_heater_status = self.ros_heater_status
@@ -48,5 +54,3 @@ class IndependentRunner(Runner):
         Runner.step(self)
         # rospy.spin()
         self.rate.sleep()
-
-
