@@ -5,7 +5,7 @@ import io
 import sys
 from project.common.data_types import IO
 from project.runner.independent_runner import *
-from project.test.utils.io_emulator import IOEmulator
+from project.test.utils.emulator import Emulator
 
 IOMapping = {
     "TIN": IO(1, "INPUT_PIN"),
