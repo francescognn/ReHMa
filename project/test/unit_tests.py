@@ -13,6 +13,13 @@ class TestIndependentRunner(unittest.TestCase):
         runner.read_temperatures()
         self.assertEqual(runner.temperatures["Sala"], 0.0)
 
+    def test_read_heater_status(self):
+        runner = IndependentRunner()
+        self.assertFalse(runner.read_heater_status())
+
+    def test_read_requests(self):
+        runner = IndependentRunner()
+        self.assertFalse(runner.read_requests())
 
 if __name__ == "__main__":
     unittest.main()
