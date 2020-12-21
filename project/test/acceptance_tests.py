@@ -1,46 +1,29 @@
 #!/usr/bin/env python
 
-import unittest
-import io
-import sys
-from project.common.data_types import IO
-from project.runner.independent_runner import *
+import sys, unittest, time
+from std_msgs.msg import *
+import rospy, rostest
 from project.test.utils.emulator import Emulator
 
-IOMapping = {
-    "TIN": IO(1, "INPUT_PIN"),
-    "TOUT": IO(2, "INPUT_PIN"),
-    "RELE": IO(4, "OUTPUT_PIN"),
-}
+PKG = 'project'
+NAME = 'emulator_test'
 
+class TestEmulator(unittest.TestCase):
+    def __init__(self, *args):
+        super(TestEmulator, self).__init__(*args)
+        self.success = False
+        
+    def callback(self, data):
+        self.success = data.data == 10.0
 
-class AcceptanceTests(unittest.TestCase):
-    def test_remote_command(self):
-        io_emulator = IOEmulator()
-        io_emulator.set_config("trigger")
-        runner = IndependentRunner(IOMapping, io_emulator)
-        while runner.temperatures["Sala"] < 24.0:
-            io_emulator.step()
-            runner.step()
-        self.assertEqual(runner.temperatures["Sala"], 24.0)
+    def test_temperature(self):
+        rospy.init_node(NAME, anonymous=True)
+        rospy.Subscriber("temperature", Float64, self.callback)
+        timeout_t = time.time() + 10.0 #10 seconds
+        while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
+            time.sleep(0.1)
+        self.assert_(self.success)
+        
+if __name__ == '__main__':
+    rostest.rosrun(PKG, NAME, TestEmulator, sys.argv)
 
-    def test_antifreeze(self):
-        io_emulator = IOEmulator()
-        io_emulator.set_config("antifreeze")
-        runner = IndependentRunner(IOMapping, io_emulator)
-        for x in range(20):
-            io_emulator.step()
-            runner.step()
-            self.assertTrue(4.5 <= runner.temperatures["Sala"] <= 20)
-
-    def test_constant(self):
-        io_emulator = IOEmulator()
-        io_emulator.set_config("constant")
-        runner = IndependentRunner(IOMapping, io_emulator)
-        io_emulator.step()
-        runner.step()
-        self.assertEqual(runner.temperatures["Sala"], 10.0)
-
-
-if __name__ == "__main__":
-    unittest.main()
