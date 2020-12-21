@@ -56,8 +56,9 @@ class Emulator:
 
 if __name__ == "__main__":
     try:
-        heater_emulator = Emulator()
 
+        heater_emulator = Emulator()
+        # heater_emulator.set_config("winter")
         while not rospy.is_shutdown():
             heater_emulator.step()
 

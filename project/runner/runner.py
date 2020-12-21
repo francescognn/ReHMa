@@ -24,7 +24,6 @@ class Runner:
         if self.temperatures["Sala"] < 5.0:
             self.publish_heater_command(True)
             self.antifreeze_mode = True
-            print("Antifreeze ON")
         if (self.antifreeze_mode) and (self.temperatures["Sala"] > 7.0):
             self.publish_heater_command(False)
             self.antifreeze_mode = False
