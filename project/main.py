@@ -10,7 +10,7 @@ IOMapping = {
     "RELE": IO(4, "OUTPUT_PIN"),
 }
 emulator_config = "antifreeze"
-runner = IndependentRunner(IOMapping, emulator_config)
+runner = IndependentRunner(IOMapping)
 runner.init()
 
 while True:

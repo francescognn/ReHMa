@@ -1,25 +1,32 @@
 #!/usr/bin/env python
+import rospy
+from std_msgs.msg import Bool
 from project.runner.runner import Runner
-from project.test.utils.io_emulator import IOEmulator
 
 
 class IndependentRunner(Runner):
-    def __init__(self, IOs, config):
+    def __init__(self, IOs):
         Runner.__init__(self, IOs)
-        self.io_emulator = IOEmulator()
-        self.io_emulator.set_config(config)
+        self.sub = rospy.Subscriber("heater_status", Bool, self.heater_status_callback)
+        rospy.init_node('Runner', anonymous=True)
+        self.rate = rospy.Rate(10) # 10hz
+        self.ros_heater_status = False
 
+    def heater_status_callback(self, data):
+        self.current_heater_status = data
+        rospy.loginfo(data)
+        
     def read_temperatures(self):
-        self.temperatures["Sala"] = self.io_emulator.get_temperature()
+        self.temperatures["Sala"] = 10.0
 
     def read_heater_status(self):
-        return self.io_emulator.get_heater_status()
+        self.current_heater_status = self.ros_heater_status
 
     def read_requests(self):
-        self.req_heater_status = self.io_emulator.get_remote_request()
+        self.req_heater_status = False
 
     def publish_heater_command(self, command):
-        self.io_emulator.set_heater_status(command)
+        pass
 
     def upload_outputs(self):
         # db_emu.set_outputs(self.input_data_)
@@ -27,4 +34,5 @@ class IndependentRunner(Runner):
 
     def step(self):
         Runner.step(self)
-        self.io_emulator.step()
+        rospy.spin()
+
