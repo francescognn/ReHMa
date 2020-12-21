@@ -9,9 +9,11 @@ class IndependentRunner(Runner):
         Runner.__init__(self, IOs)
         self.ros_heater_status = False
         self.ros_temperatures = {"Sala": 0.0}
-        
-        self.sub_heater = rospy.Subscriber("heater_status", Bool, self.heater_status_callback)
+        self.ros_remote_request = False
+
         self.sub_temperature = rospy.Subscriber("temperature", Float64, self.temperature_callback)
+        self.sub_heater = rospy.Subscriber("heater_status", Bool, self.heater_status_callback)
+        self.sub_remote_request = rospy.Subscriber("remote_request", Bool, self.remote_request_callback)
         self.pub_heater_command = rospy.Publisher("heater_command", Bool, queue_size=10)
         
         rospy.init_node('Runner', anonymous=True)
@@ -23,6 +25,9 @@ class IndependentRunner(Runner):
     def heater_status_callback(self, data):
         self.current_heater_status = data
         
+    def remote_request_callback(self, data):
+        self.ros_remote_request = data
+        
     def read_temperatures(self):
         self.temperatures = self.ros_temperatures 
 
@@ -30,7 +35,7 @@ class IndependentRunner(Runner):
         self.current_heater_status = self.ros_heater_status
 
     def read_requests(self):
-        self.req_heater_status = False
+        self.req_heater_status = self.ros_remote_request
 
     def publish_heater_command(self, command):
         self.pub_heater_command.publish(command)

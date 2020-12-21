@@ -21,6 +21,8 @@ class Emulator:
         self.sub_heater_command = rospy.Subscriber("heater_command", Bool, self.heater_command_callback)
         self.pub_heater_status = rospy.Publisher('heater_status', Bool, queue_size=10)
         self.pub_temperature = rospy.Publisher('temperature', Float64, queue_size=10)
+        self.pub_remote_request = rospy.Publisher('remote_request', Bool, queue_size=10)
+        
         rospy.init_node('emulator', anonymous=True)
         self.rate = rospy.Rate(10) # 10hz
 
