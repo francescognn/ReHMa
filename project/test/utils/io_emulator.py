@@ -16,9 +16,9 @@ class Emulator:
         self.heater_status = False
         self.current_temp = 10.0
         self.config = "constant"
-        self.flag = True
-        self.iterator = 0
         self.remote_request = False
+        
+        self.sub_heater_command = rospy.Subscriber("heater_command", Bool, self.heater_command_callback)
         self.pub_heater_status = rospy.Publisher('heater_status', Bool, queue_size=10)
         self.pub_temperature = rospy.Publisher('temperature', Float64, queue_size=10)
         rospy.init_node('emulator', anonymous=True)
@@ -36,12 +36,15 @@ class Emulator:
             if self.current_temp > T_MIN:
                 self.current_temp -= 0.05
 
-        if self.heater_status == True and self.current_temp <= T_MAX:
+        if self.heater_status and self.current_temp <= T_MAX:
             self.current_temp += 0.1
 
         self.pub_heater_status.publish(self.heater_status)
         self.pub_temperature.publish(self.current_temp)
         self.rate.sleep()
+
+    def heater_command_callback(self, data):
+        self.heater_status = data.data
 
     def set_config(self, config):
         self.config = config
