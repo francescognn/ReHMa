@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from time import sleep
-from data_types import IO
+from project.common.data_types import IO
 from runner.independent_runner import IndependentRunner
 
 IOMapping = {
