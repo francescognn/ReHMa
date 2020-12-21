@@ -2,10 +2,8 @@
 
 from project.common.data_types import IO
 
-
 class Runner:
-    def __init__(self, IOs):
-        self.IOs = IOs
+    def __init__(self):
         self.temperatures = {"Sala": 0.0}
         self.current_heater_status = False
         self.req_heater_status = False
@@ -16,9 +14,9 @@ class Runner:
 
     def step(self):
 
-        self.read_heater_status()
-        self.read_temperatures()
-        self.read_requests()
+        self.current_heater_status = self.read_heater_status()
+        self.temperatures = self.read_temperatures()
+        self.req_heater_status = self.read_requests()
 
         if self.req_heater_status != self.current_heater_status:
             self.publish_heater_command(self.req_heater_status)
@@ -31,7 +29,6 @@ class Runner:
             self.publish_heater_command(False)
             self.antifreeze_mode = False
 
-        print("t in sala:", self.temperatures["Sala"])
         self.upload_outputs()
 
     def shutdown(self):

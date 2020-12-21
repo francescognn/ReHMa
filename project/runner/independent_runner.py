@@ -5,8 +5,8 @@ from project.runner.runner import Runner
 
 
 class IndependentRunner(Runner):
-    def __init__(self, IOs):
-        Runner.__init__(self, IOs)
+    def __init__(self):
+        Runner.__init__(self)
         self.ros_heater_status = False
         self.ros_temperatures = {"Sala": 0.0}
         self.ros_remote_request = False
@@ -24,7 +24,23 @@ class IndependentRunner(Runner):
 
         rospy.init_node("Runner", anonymous=True)
         self.rate = rospy.Rate(10)  # 10hz
+    
+    def read_temperatures(self):
+        return self.ros_temperatures
 
+    def read_heater_status(self):
+        return self.ros_heater_status
+
+    def read_requests(self):
+        return self.ros_remote_request
+
+    def publish_heater_command(self, command):
+        self.pub_heater_command.publish(command)
+
+    def upload_outputs(self):
+        pass
+
+    # Callbacks
     def temperature_callback(self, data):
         self.ros_temperatures["Sala"] = data.data
 
@@ -33,23 +49,8 @@ class IndependentRunner(Runner):
 
     def remote_request_callback(self, data):
         self.ros_remote_request = data
-
-    def read_temperatures(self):
-        self.temperatures = self.ros_temperatures
-
-    def read_heater_status(self):
-        self.current_heater_status = self.ros_heater_status
-
-    def read_requests(self):
-        self.req_heater_status = self.ros_remote_request
-
-    def publish_heater_command(self, command):
-        self.pub_heater_command.publish(command)
-
-    def upload_outputs(self):
-        # db_emu.set_outputs(self.input_data_)
-        pass
-
+    
+    # Override with ros Step
     def step(self):
         Runner.step(self)
         # rospy.spin()
