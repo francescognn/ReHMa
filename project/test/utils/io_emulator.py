@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import random
+import rospy
+from std_msgs.msg import Bool
 
 global T_MIN
 global T_MAX
@@ -10,7 +12,7 @@ T_MAX = 20.0
 T_MAX_HEATER = 27.5
 
 
-class IOEmulator:
+class Emulator:
     def __init__(self):
         self.heater_status = False
         self.current_temp = 10.0
@@ -18,6 +20,9 @@ class IOEmulator:
         self.flag = True
         self.iterator = 0
         self.remote_request = False
+        self.pub = rospy.Publisher('heater_status', Bool, queue_size=10)
+        rospy.init_node('emulator', anonymous=True)
+        self.rate = rospy.Rate(10) # 10hz
 
     def step(self):
         if self.config == "antifreeze":
@@ -41,6 +46,9 @@ class IOEmulator:
             if self.iterator == 5:
                 self.remote_request = True
             self.iterator += 1
+        
+        self.pub.publish(self.heater_status)
+        self.rate.sleep()
 
     def get_remote_request(self):
         return self.remote_request
@@ -58,3 +66,12 @@ class IOEmulator:
         self.config = config
         if config == "antifreeze":
             self.current_temp = 6.0
+
+if __name__ == '__main__':
+    try:
+        heater_emulator = Emulator()
+        while not rospy.is_shutdown():
+            heater_emulator.step()
+    except rospy.ROSInterruptException:
+        pass
+        
