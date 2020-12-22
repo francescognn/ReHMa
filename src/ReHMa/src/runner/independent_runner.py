@@ -11,7 +11,6 @@ class IndependentRunner(Runner):
         self.ros_temperatures = {"Sala": 0.0}
         self.ros_remote_request = False
 
-    
     def init(self):
         Runner.init(self)
         self.sub_temperature = rospy.Subscriber(
@@ -28,7 +27,6 @@ class IndependentRunner(Runner):
         rospy.init_node("Runner", anonymous=True)
         self.rate = rospy.Rate(10)  # 10hz
 
-    
     def read_temperatures(self):
         return self.ros_temperatures
 
@@ -53,7 +51,7 @@ class IndependentRunner(Runner):
 
     def remote_request_callback(self, data):
         self.ros_remote_request = data
-    
+
     # Override with ros Step
     def step(self):
         Runner.step(self)

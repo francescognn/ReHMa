@@ -2,6 +2,7 @@
 
 from src.common.data_types import IO
 
+
 class Runner:
     def __init__(self):
         self.temperatures = {"Sala": 0.0}
