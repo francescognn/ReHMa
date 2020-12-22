@@ -11,6 +11,9 @@ class IndependentRunner(Runner):
         self.ros_temperatures = {"Sala": 0.0}
         self.ros_remote_request = False
 
+    
+    def init(self):
+        Runner.init(self)
         self.sub_temperature = rospy.Subscriber(
             "temperature", Float64, self.temperature_callback
         )
@@ -24,6 +27,7 @@ class IndependentRunner(Runner):
 
         rospy.init_node("Runner", anonymous=True)
         self.rate = rospy.Rate(10)  # 10hz
+
     
     def read_temperatures(self):
         return self.ros_temperatures
