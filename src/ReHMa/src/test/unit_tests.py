@@ -7,18 +7,18 @@ from src.runner.ros_runner import *
 from src.test.utils.emulator import Emulator
 
 
-class TestIndependentRunner(unittest.TestCase):
+class TestRosRunner(unittest.TestCase):
     def test_read_temperatures(self):
-        runner = IndependentRunner()
+        runner = RosRunner()
         runner.read_temperatures()
         self.assertEqual(runner.temperatures["Sala"], 0.0)
 
     def test_read_heater_status(self):
-        runner = IndependentRunner()
+        runner = RosRunner()
         self.assertFalse(runner.read_heater_status())
 
     def test_read_requests(self):
-        runner = IndependentRunner()
+        runner = RosRunner()
         self.assertFalse(runner.read_requests())
 
 
