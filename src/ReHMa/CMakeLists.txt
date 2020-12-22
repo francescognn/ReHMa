@@ -163,7 +163,7 @@ include_directories(
    src/test/acceptance_tests.py
    src/test/unit_tests.py
    src/test/utils/emulator.py
-   src/runner/independent_runner.py
+   src/runner/ros_runner.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
