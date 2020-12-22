@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import Bool, Float64
-from project.runner.runner import Runner
+from src.runner.runner import Runner
 
 
 class IndependentRunner(Runner):

@@ -3,8 +3,8 @@
 import unittest
 import io
 import sys
-from project.runner.independent_runner import *
-from project.test.utils.emulator import Emulator
+from src.runner.independent_runner import *
+from src.test.utils.emulator import Emulator
 
 class TestIndependentRunner(unittest.TestCase):
 

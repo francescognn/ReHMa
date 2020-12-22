@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from project.common.data_types import IO
+from src.common.data_types import IO
 
 class Runner:
     def __init__(self):

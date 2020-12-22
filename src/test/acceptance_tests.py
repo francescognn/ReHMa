@@ -3,7 +3,7 @@
 import sys, unittest, time
 from std_msgs.msg import *
 import rospy, rostest
-from project.test.utils.emulator import Emulator
+from src.test.utils.emulator import Emulator
 
 PKG = 'project'
 NAME = 'emulator_test'

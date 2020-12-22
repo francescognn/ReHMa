@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from time import sleep
-from runner.independent_runner import IndependentRunner
+from src.runner.independent_runner import IndependentRunner
 
 runner = IndependentRunner()
 runner.init()
