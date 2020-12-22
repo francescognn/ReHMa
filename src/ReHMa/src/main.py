@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 from time import sleep
-from src.runner.independent_runner import IndependentRunner
+from src.runner.ros_runner import RosRunner
 
-runner = IndependentRunner()
+runner = RosRunner()
 runner.init()
 
 while True:

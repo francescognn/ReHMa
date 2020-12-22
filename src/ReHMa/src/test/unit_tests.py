@@ -3,7 +3,7 @@
 import unittest
 import io
 import sys
-from src.runner.independent_runner import *
+from src.runner.ros_runner import *
 from src.test.utils.emulator import Emulator
 
 

@@ -4,7 +4,7 @@ from std_msgs.msg import Bool, Float64
 from src.runner.runner import Runner
 
 
-class IndependentRunner(Runner):
+class RosRunner(Runner):
     def __init__(self):
         Runner.__init__(self)
         self.ros_heater_status = False
