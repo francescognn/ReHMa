@@ -64,4 +64,3 @@ class Emulator:
 
     def set_config(self, config):
         self.config = config
-
