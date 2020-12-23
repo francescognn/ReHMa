@@ -14,17 +14,22 @@ class TestEmulator(unittest.TestCase):
         super(TestEmulator, self).__init__(*args)
         self.success = False
 
-    def callback(self, data):
-        self.success = data.data >= 4.5
+    def callback_temperature(self, data):
+        self.success_temperature = data.data >= 4.5
+
+    def callback_status(self, data):
+        self.success_status = data.data == True
 
     def test_temperature(self):
         rospy.init_node(NAME, anonymous=True)
-        rospy.Subscriber("temperature", Float64, self.callback)
-        timeout_t = time.time() + 10.0  # 10 seconds
+        rospy.Subscriber("temperature", Float64, self.callback_temperature)
+        rospy.Subscriber("heater_status", Bool, self.callback_status)
+        timeout_t = time.time() + 22.0
+        start_time = time.time()
         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
             time.sleep(0.1)
-            self.assert_(self.success)
-
+            self.assertTrue(self.success_temperature)
+        self.assertTrue(self.success_status)
 
 if __name__ == "__main__":
     rostest.rosrun(PKG, NAME, TestEmulator, sys.argv)

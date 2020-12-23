@@ -48,14 +48,17 @@ class Emulator:
             if self.current_temp < T_MAX and self.current_temp > T_MIN:
                 if self.timestamp < 10:
                     self.current_temp -= 0.08
-                if 10 < self.timestamp < 30:
+                if 10 < self.timestamp < 15:
                     self.current_temp += 0.05
+                if self.timestamp >= 20:
+                    self.remote_request = True
 
         if self.heater_status and self.current_temp <= T_MAX:
             self.current_temp += 0.1
 
         self.pub_heater_status.publish(self.heater_status)
         self.pub_temperature.publish(self.current_temp)
+        self.pub_remote_request.publish(self.remote_request)
         self.rate.sleep()
         self.timestamp += 0.1
 
