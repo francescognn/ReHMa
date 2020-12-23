@@ -1,4 +1,4 @@
-from project.runner.runner import Runner
+from src.runner.runner import Runner
 import RPi.GPIO as GPIO
 
 

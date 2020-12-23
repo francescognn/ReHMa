@@ -7,12 +7,12 @@ export PYTHONPATH="${PYTHONPATH}:$PWD"
 ## Runners
 Class `Runner` is an Application Class implementing all the platform agnostic logics. Then in order to run the code two child class have been created: 
 * `PlatformRunner` Uses libaries that can be run only on Raspberry (like GPIO).
-* `IndependentRunner` Runner that can be used on any platform to run the core code.
-## IOEmulator
-Class `IOEmulator` is meant to emulate the behaviour of the heating system (i.e. when the heater is turned on, the temperature increases). Currently it gets a config string (default is `"constant"`) and so far three have been implemented in order to build up acceptance tests: 
+* `RosRunner` Runner that can be used with ros to run the core code.
+## Emulator
+Class `Emulator` is meant to emulate the behaviour of the heating system (i.e. when the heater is turned on, the temperature increases). Currently it gets a config string (default is `"constant"`) and so far three have been implemented in order to build up acceptance tests: 
 * `constant` that keeps a constant temperature of 10°
-* `antifreeze` simulating a drop in temperature below 5° and if the antifreeze mode works properly it will keep 6.5°
-* `trigger` that simulates a remote command to turn on the heater 
+* `winter` simulating a winter scenario with temperatures going to 2.0°
+* `summer` that simulates increasing temperatures till `T_MAX` 
 ## Testing 
 * unit tests implemented for each method
 * acceptance tests to be run simulating raspberry input and output.
@@ -28,7 +28,7 @@ pip3 install pyinstaller
 ```
 * Then we can generate an executable for the main script: 
 ```
-pyinstaller -F  project/main.py
+pyinstaller -F  src/ReHMa/src/main.py
 ```
 Note that in order to work the script must contain absolute imports!
 The generated executable will be available under `../ReHMa/dist`
