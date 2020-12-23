@@ -15,6 +15,7 @@ class Emulator:
     def __init__(self):
         self.heater_status = False
         self.current_temp = 10.0
+        self.timestamp = 0.0
         self.config = "constant"
         self.remote_request = False
 
@@ -29,6 +30,9 @@ class Emulator:
         self.rate = rospy.Rate(10)  # 10hz
 
     def step(self):
+        noise = random.uniform(-0.05, 0.05)
+        self.current_temp += noise
+
         if self.config == "summer":
             if self.current_temp < T_MAX:
                 self.current_temp += 0.05
@@ -40,27 +44,26 @@ class Emulator:
             if self.current_temp > T_MIN:
                 self.current_temp -= 0.05
 
+        if self.config == "cycle":
+            if self.current_temp < T_MAX and self.current_temp > T_MIN:
+                if self.timestamp < 10:
+                    self.current_temp -= 0.08
+                if 10 < self.timestamp < 15:
+                    self.current_temp += 0.05
+                if self.timestamp >= 20:
+                    self.remote_request = True
+
         if self.heater_status and self.current_temp <= T_MAX:
             self.current_temp += 0.1
 
         self.pub_heater_status.publish(self.heater_status)
         self.pub_temperature.publish(self.current_temp)
+        self.pub_remote_request.publish(self.remote_request)
         self.rate.sleep()
+        self.timestamp += 0.1
 
     def heater_command_callback(self, data):
         self.heater_status = data.data
 
     def set_config(self, config):
         self.config = config
-
-
-if __name__ == "__main__":
-    try:
-
-        heater_emulator = Emulator()
-        # heater_emulator.set_config("winter")
-        while not rospy.is_shutdown():
-            heater_emulator.step()
-
-    except rospy.ROSInterruptException:
-        pass
