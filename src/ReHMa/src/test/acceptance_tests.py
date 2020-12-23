@@ -31,5 +31,6 @@ class TestEmulator(unittest.TestCase):
             self.assertTrue(self.success_temperature)
         self.assertTrue(self.success_status)
 
+
 if __name__ == "__main__":
     rostest.rosrun(PKG, NAME, TestEmulator, sys.argv)
