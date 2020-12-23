@@ -162,6 +162,7 @@ include_directories(
    src/main.py
    src/test/acceptance_tests.py
    src/test/unit_tests.py
+   src/test/emulator_cycle.py
    src/test/utils/emulator.py
    src/runner/ros_runner.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

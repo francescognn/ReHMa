@@ -1,4 +1,4 @@
 <launch>
-  <node pkg="ReHMa" type="emulator.py" name="emulator" />
+  <node pkg="ReHMa" type="emulator_cycle.py" name="emulator_cycle" />
   <test test-name="acceptance_tests" pkg="ReHMa" type="acceptance_tests.py" />
 </launch>

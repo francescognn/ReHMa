@@ -15,7 +15,7 @@ class TestEmulator(unittest.TestCase):
         self.success = False
 
     def callback(self, data):
-        self.success = data.data == 10.0
+        self.success = data.data >= 4.5
 
     def test_temperature(self):
         rospy.init_node(NAME, anonymous=True)
@@ -23,7 +23,7 @@ class TestEmulator(unittest.TestCase):
         timeout_t = time.time() + 10.0  # 10 seconds
         while not rospy.is_shutdown() and not self.success and time.time() < timeout_t:
             time.sleep(0.1)
-        self.assert_(self.success)
+            self.assert_(self.success)
 
 
 if __name__ == "__main__":
